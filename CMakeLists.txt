@@ -46,7 +46,9 @@ option(BUILD_NVIDIACG "Copy NVIDIA Cg Toolkit binaries" ${DEFAULT_ENABLE})
 option(BUILD_OPENSSL "Build OpenSSL" ${DEFAULT_ENABLE})
 option(BUILD_OPENEXR "Build OpenEXR" ${DEFAULT_ENABLE})
 option(BUILD_FFMPEG "Build FFMpeg (requires vorbis, freetype and zlib)" ${DEFAULT_ENABLE})
-
+option(BUILD_EMBREE "Build Intel Embree" ${DEFAULT_ENABLE})
+option(BUILD_PROTOBUF "Build Protobuf" ${DEFEAULT_ENABLE})
+option(BUILD_GAMENETWORKINGSOCKETS "Build Valve GameNetworkingSockets (requires protobuf)" ${DEFAULT_ENABLE})
 
 if(CMAKE_GENERATOR MATCHES "^Visual Studio [0-9]+ ")
   string(REPLACE " " ";" WORDS ${CMAKE_GENERATOR})
@@ -769,5 +771,51 @@ elseif(BUILD_FFMPEG)
   ExternalProject_Add_Step(ffmpeg remove_extras
     COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/pkgconfig"
     DEPENDEES install
+  )
+endif()
+
+# FIXME: OSX and Linux!!!
+if(BUILD_EMBREE)
+  ExternalProject_Add(
+    embree
+    URL https://github.com/embree/embree/releases/download/v3.10.0/embree-3.10.0.x64.vc14.windows.zip
+    #GIT_TAG ad35a6794c7cc9194dc845a6b3c49eb492e585e3 # 3.10.0
+
+    CONFIGURE_COMMAND ""
+      BUILD_COMMAND ""
+      INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/lib <INSTALL_DIR>/lib
+              COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include
+              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/embree3.dll <INSTALL_DIR>/bin/embree3.dll
+              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/tbb.dll <INSTALL_DIR>/bin/tbb.dll
+      INSTALL_DIR ${THIRDPARTY_DIR}/embree
+  )
+endif()
+
+if(BUILD_PROTOBUF)
+  ExternalProject_Add(
+    protobuf
+    GIT_REPOSITORY https://github.com/protocolbuffers/protobuf.git
+    GIT_TAG d0bfd5221182da1a7cc280f3337b5e41a89539cf # 3.11.4
+
+    SOURCE_SUBDIR ./cmake
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+    INSTALL_DIR ${THIRDPARTY_DIR}/protobuf
+  )
+endif()
+
+if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
+  ExternalProject_Add(
+    gamenetworkingsockets
+    GIT_REPOSITORY https://github.com/TT-SP/GameNetworkingSockets.git
+    GIT_TAG 999816f4436046e14c098910e79ba4ae7668560b
+
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DProtobuf_INCLUDE_DIR=${THIRDPARTY_DIR}/protobuf/include
+      -DProtobuf_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotobuf.lib
+      -DProtobuf_PROTOC_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotoc.lib
+      -DProtobuf_LITE_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotobuf-lite.lib
+      -DProtobuf_PROTOC_EXECUTABLE=${THIRDPARTY_DIR}/protobuf/bin/protoc.exe
+      -DProtobuf_USE_STATIC_LIBS=1
+    INSTALL_DIR ${THIRDPARTY_DIR}/gamenetworkingsockets
   )
 endif()
