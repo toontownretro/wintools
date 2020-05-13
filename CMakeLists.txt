@@ -774,7 +774,7 @@ elseif(BUILD_FFMPEG)
   )
 endif()
 
-# FIXME: OSX and Linux!!!
+# FIXME: Darwin and Linux!!!
 if(BUILD_EMBREE)
   ExternalProject_Add(
     embree
@@ -799,6 +799,9 @@ if(BUILD_PROTOBUF)
 
     SOURCE_SUBDIR ./cmake
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DBUILD_SHARED_LIBS=0
+      -Dprotobuf_MSVC_STATIC_RUNTIME=0 # This only applies to Windows
+      -Dprotobuf_BUILD_TESTS=0
     INSTALL_DIR ${THIRDPARTY_DIR}/protobuf
   )
 endif()
@@ -807,15 +810,15 @@ if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
   ExternalProject_Add(
     gamenetworkingsockets
     GIT_REPOSITORY https://github.com/TT-SP/GameNetworkingSockets.git
-    GIT_TAG 999816f4436046e14c098910e79ba4ae7668560b
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
-      -DProtobuf_INCLUDE_DIR=${THIRDPARTY_DIR}/protobuf/include
-      -DProtobuf_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotobuf.lib
-      -DProtobuf_PROTOC_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotoc.lib
-      -DProtobuf_LITE_LIBRARY=${THIRDPARTY_DIR}/protobuf/lib/libprotobuf-lite.lib
-      -DProtobuf_PROTOC_EXECUTABLE=${THIRDPARTY_DIR}/protobuf/bin/protoc.exe
+      -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/protobuf
+      -DMSVC_RUNTIME=shared # This only applies to Windows
       -DProtobuf_USE_STATIC_LIBS=1
+      -DGAMENETWORKINGSOCKETS_BUILD_TESTS=0
+      -DGAMENETWORKINGSOCKETS_BUILD_SAMPLES=0
+    DEPENDS protobuf
     INSTALL_DIR ${THIRDPARTY_DIR}/gamenetworkingsockets
   )
+  ExternalProject_Add_Step(gamenetworkingsockets install ${THIRDPARTY_DIR}/gamenetworkingsockets)
 endif()
