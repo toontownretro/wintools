@@ -1,0 +1,5 @@
+build/*
+win-*/*
+darwin-*/*
+linux-*/*
+freebsd-*/*
