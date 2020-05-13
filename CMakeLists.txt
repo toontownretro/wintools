@@ -820,5 +820,4 @@ if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
     DEPENDS protobuf
     INSTALL_DIR ${THIRDPARTY_DIR}/gamenetworkingsockets
   )
-  ExternalProject_Add_Step(gamenetworkingsockets install ${THIRDPARTY_DIR}/gamenetworkingsockets)
 endif()
