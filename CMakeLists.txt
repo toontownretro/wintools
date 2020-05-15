@@ -42,12 +42,12 @@ option(BUILD_TIFF "Build TIFF (requires zlib and jpeg)" OFF)
 option(BUILD_EIGEN "Copy Eigen headers" OFF)
 option(BUILD_ODE "Build ODE physics engine" OFF)
 option(BUILD_ARTOOLKIT "Build ARToolKit" OFF)
-option(BUILD_NVIDIACG "Copy NVIDIA Cg Toolkit binaries" OFF)
+option(BUILD_NVIDIACG "Copy NVIDIA Cg Toolkit binaries" ${DEFAULT_ENABLE})
 option(BUILD_OPENSSL "Build OpenSSL" ${DEFAULT_ENABLE})
 option(BUILD_OPENEXR "Build OpenEXR" OFF)
 option(BUILD_FFMPEG "Build FFMpeg (requires vorbis, freetype and zlib)" ${DEFAULT_ENABLE})
 option(BUILD_EMBREE "Build Intel Embree" ${DEFAULT_ENABLE})
-option(BUILD_PROTOBUF "Build Protobuf" ${DEFEAULT_ENABLE})
+option(BUILD_PROTOBUF "Build Protobuf" ${DEFAULT_ENABLE})
 option(BUILD_GAMENETWORKINGSOCKETS "Build Valve GameNetworkingSockets (requires protobuf)" ${DEFAULT_ENABLE})
 
 if(CMAKE_GENERATOR MATCHES "^Visual Studio [0-9]+ ")
@@ -385,7 +385,7 @@ if(BUILD_OPENAL)
   )
 
   ExternalProject_Add_Step(openal remove_extras
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/cmake"
+    #COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/cmake"
     COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/pkgconfig"
     DEPENDEES install
   )
