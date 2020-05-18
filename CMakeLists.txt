@@ -3,6 +3,13 @@
 
 cmake_minimum_required(VERSION 2.8.3)
 
+if(WIN32)
+  if (CMAKE_GENERATOR_PLATFORM STREQUAL "")
+    # Assume x64
+    set(CMAKE_GENERATOR_PLATFORM "x64")
+  endif()
+endif()
+
 # Set defaults.  Must be before project().
 if(APPLE)
   set(CMAKE_OSX_ARCHITECTURES "x86_64" CACHE STRING "")
