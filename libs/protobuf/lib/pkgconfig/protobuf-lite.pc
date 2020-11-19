@@ -1,0 +1,11 @@
+prefix=C:/cygwin64/home/brian/player/thirdparty/win-libs-vc16-x64/protobuf
+exec_prefix=C:/cygwin64/home/brian/player/thirdparty/win-libs-vc16-x64/protobuf
+libdir=C:/cygwin64/home/brian/player/thirdparty/win-libs-vc16-x64/protobuf/lib
+includedir=C:/cygwin64/home/brian/player/thirdparty/win-libs-vc16-x64/protobuf/include
+
+Name: Protocol Buffers
+Description: Google's Data Interchange Format
+Version: 3.11.4.0
+Libs: -L${libdir} -lprotobuf-lite 
+Cflags: -I${includedir} 
+Conflicts: protobuf
