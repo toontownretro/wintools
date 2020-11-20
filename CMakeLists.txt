@@ -613,8 +613,8 @@ if(BUILD_OPENSSL AND MSVC)
 
   ExternalProject_Add(
     openssl
-    URL https://www.openssl.org/source/openssl-1.0.2u.tar.gz
-    URL_HASH SHA256=ecd0c6ffb493dd06707d38b14bb4d8c2288bb7033735606569d8f90f89669d16
+    URL https://www.openssl.org/source/openssl-1.1.1h.tar.gz
+    URL_HASH SHA256=5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9
 
     CONFIGURE_COMMAND perl Configure ${ssl_config} no-asm no-shared --prefix=<INSTALL_DIR>
               COMMAND ${CMAKE_CURRENT_LIST_DIR}/openssl-ms.bat ${ssl_config}
@@ -633,8 +633,8 @@ if(BUILD_OPENSSL AND MSVC)
 elseif(BUILD_OPENSSL AND NOT APPLE)
   ExternalProject_Add(
     openssl
-    URL https://www.openssl.org/source/openssl-1.0.2r.tar.gz
-    URL_HASH SHA256=ae51d08bba8a83958e894946f15303ff894d75c2b8bbd44a852b64e3fe11d0d6
+    URL https://www.openssl.org/source/openssl-1.1.1h.tar.gz
+    URL_HASH SHA256=5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9
 
     CONFIGURE_COMMAND ./config no-asm no-shared --prefix=<INSTALL_DIR> ${CMAKE_C_FLAGS}
     BUILD_COMMAND ${MAKE}
@@ -661,8 +661,8 @@ elseif(BUILD_OPENSSL AND APPLE)
 
   ExternalProject_Add(
     openssl
-    URL https://www.openssl.org/source/openssl-1.0.2r.tar.gz
-    URL_HASH SHA256=ae51d08bba8a83958e894946f15303ff894d75c2b8bbd44a852b64e3fe11d0d6
+    URL https://www.openssl.org/source/openssl-1.1.1h.tar.gz
+    URL_HASH SHA256=5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9
 
     CONFIGURE_COMMAND /usr/bin/perl ./Configure darwin64-x86_64-cc --prefix=<INSTALL_DIR> --openssldir=<INSTALL_DIR> ${ssl_flags}
     BUILD_COMMAND ${MAKE}
@@ -816,7 +816,7 @@ endif()
 if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
   ExternalProject_Add(
     gamenetworkingsockets
-    GIT_REPOSITORY https://github.com/TT-SP/GameNetworkingSockets.git
+    GIT_REPOSITORY https://github.com/tsp-team/GameNetworkingSockets.git
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
       -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/protobuf
