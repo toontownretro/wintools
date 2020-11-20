@@ -56,6 +56,10 @@ option(BUILD_FFMPEG "Build FFMpeg (requires vorbis, freetype and zlib)" ${DEFAUL
 option(BUILD_EMBREE "Build Intel Embree" ${DEFAULT_ENABLE})
 option(BUILD_PROTOBUF "Build Protobuf" ${DEFAULT_ENABLE})
 option(BUILD_GAMENETWORKINGSOCKETS "Build Valve GameNetworkingSockets (requires protobuf)" ${DEFAULT_ENABLE})
+option(BUILD_GLSLANG "Build glslang" ${DEFAULT_ENABLE})
+option(BUILD_SPIRV_CROSS "Build spirv-cross" ${DEFAULT_ENABLE})
+option(BUILD_SPIRV_TOOLS "Build spirv-tools" ${DEFAULT_ENABLE})
+
 
 if(CMAKE_GENERATOR MATCHES "^Visual Studio [0-9]+ ")
   string(REPLACE " " ";" WORDS ${CMAKE_GENERATOR})
@@ -498,8 +502,8 @@ endif()
 if(BUILD_EIGEN)
   ExternalProject_Add(
     eigen
-    URL https://bitbucket.org/eigen/eigen/get/3.2.8.tar.gz
-    URL_HASH SHA256=8d01d2d3a173c59065642a08d1dd661b399e4fed6edbda632143e7be937de7e0
+    URL https://gitlab.com/libeigen/eigen/-/archive/3.2.8/eigen-3.2.8.tar.gz
+    URL_HASH SHA256=64c54781cfe9eefef2792003ab04b271d4b2ec32eda6e9cdf120d7aad4ebb282
 
     # No need to build anything; just copy over the Eigen directory.
     CONFIGURE_COMMAND ""
@@ -705,63 +709,7 @@ if(BUILD_OPENEXR)
   )
 endif()
 
-if(BUILD_FFMPEG AND WIN32)
-  set(FFMPEG_VERSION 3.2.4)
-
-  if(CMAKE_GENERATOR_PLATFORM MATCHES "x64")
-    set(MACHINE_FLAG "/machine:x64")
-    set(FFMPEG_ARCH "win64")
-    set(FFMPEG_DEV_HASH 3486b694cf92b1480c53609cc3695b5f0b53cbc7c1894170fe60575b707fd300)
-    set(FFMPEG_SHARED_HASH 31dab0e45aa2808fc422927eca5d49761985d1471b7122aadc6f85deb7bf6a7f)
-  else()
-    set(MACHINE_FLAG "/machine:x86")
-    set(FFMPEG_ARCH "win32")
-    set(FFMPEG_DEV_HASH 30e47528f8d16b4365ccbe76dc8ccfa145930064e7a496495a3e805d225b5801)
-    set(FFMPEG_SHARED_HASH c62a6e2237097cedbfd6b2e122f6650baf468d1bb4e9f73105126bf2a44b2329)
-  endif()
-  ExternalProject_Add(
-    ffmpeg-dev
-    URL http://ffmpeg.zeranoe.com/builds/${FFMPEG_ARCH}/dev/ffmpeg-${FFMPEG_VERSION}-${FFMPEG_ARCH}-dev.zip
-    URL_HASH SHA256=${FFMPEG_DEV_HASH}
-    CONFIGURE_COMMAND ${CMAKE_COMMAND} -E make_directory <SOURCE_DIR>/outlib
-    BUILD_COMMAND lib.exe /def:lib\\avcodec-57.def /out:outlib\\avcodec.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\avdevice-57.def /out:outlib\\avdevice.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\avfilter-6.def /out:outlib\\avfilter.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\avformat-57.def /out:outlib\\avformat.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\avutil-55.def /out:outlib\\avutil.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\postproc-54.def /out:outlib\\postproc.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\swresample-2.def /out:outlib\\swresample.lib ${MACHINE_FLAG}
-          COMMAND lib.exe /def:lib\\swscale-4.def /out:outlib\\swscale.lib ${MACHINE_FLAG}
-    BUILD_IN_SOURCE 1
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/outlib <INSTALL_DIR>/lib
-            COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include
-            COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/licenses <INSTALL_DIR>/licenses
-    INSTALL_DIR ${THIRDPARTY_DIR}/ffmpeg
-  )
-  ExternalProject_Add(
-    ffmpeg-shared
-    URL http://ffmpeg.zeranoe.com/builds/${FFMPEG_ARCH}/shared/ffmpeg-${FFMPEG_VERSION}-${FFMPEG_ARCH}-shared.zip
-    URL_HASH SHA256=${FFMPEG_SHARED_HASH}
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/bin <INSTALL_DIR>/bin
-    INSTALL_DIR ${THIRDPARTY_DIR}/ffmpeg
-  )
-  ExternalProject_Add_Step(ffmpeg-shared remove_extras
-    COMMAND ${CMAKE_COMMAND} -E remove "<INSTALL_DIR>/bin/ffmpeg.exe"
-                                       "<INSTALL_DIR>/bin/ffplay.exe"
-                                       "<INSTALL_DIR>/bin/ffprobe.exe"
-    DEPENDEES install
-  )
-
-  if (CMAKE_GENERATOR MATCHES "^Visual Studio 10 ")
-    # Copy over the custom inttypes.h file.
-    ExternalProject_Add_Step(ffmpeg-dev install_inttypes
-      COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_CURRENT_LIST_DIR}/inttypes.h" "<INSTALL_DIR>/include/inttypes.h"
-      DEPENDEES install
-    )
-  endif()
-elseif(BUILD_FFMPEG)
+if(BUILD_FFMPEG AND NOT WIN32)
   EXTERNALPROJECT_ADD(
     ffmpeg
     DEPENDS ogg vorbis freetype zlib
@@ -826,5 +774,88 @@ if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
       -DGAMENETWORKINGSOCKETS_BUILD_SAMPLES=0
     DEPENDS protobuf
     INSTALL_DIR ${THIRDPARTY_DIR}/gamenetworkingsockets
+  )
+endif()
+
+if(BUILD_GLSLANG)
+  ExternalProject_Add(
+    glslang
+    GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
+    GIT_TAG 7f6559d2802d0653541060f0909e33d137b9c8ba
+
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DBUILD_EXTERNAL=OFF
+      -DBUILD_SHARED_LIBS=OFF
+      -DBUILD_TESTING=OFF
+      -DENABLE_EXCEPTIONS=OFF
+      -DENABLE_GLSLANG_BINARIES=OFF
+      -DENABLE_HLSL=ON
+      -DENABLE_RTTI=OFF
+      -DENABLE_SPVREMAPPER=OFF
+    INSTALL_DIR ${THIRDPARTY_DIR}/glslang
+  )
+endif()
+
+if(BUILD_SPIRV_CROSS)
+  ExternalProject_Add(
+    spirv-cross
+    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
+    GIT_TAG 58291963c6a3f3322fa652595777f4e1e84a2874
+
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DSPIRV_CROSS_CLI=OFF
+      -DSPIRV_CROSS_ENABLE_CPP=OFF
+      -DSPIRV_CROSS_ENABLE_C_API=OFF
+      -DSPIRV_CROSS_ENABLE_GLSL=ON
+      -DSPIRV_CROSS_ENABLE_HLSL=ON
+      -DSPIRV_CROSS_ENABLE_MSL=ON
+      -DSPIRV_CROSS_ENABLE_REFLECT=OFF
+      -DSPIRV_CROSS_ENABLE_TESTS=OFF
+      -DSPIRV_CROSS_ENABLE_UTIL=OFF
+      -DSPIRV_CROSS_EXCEPTIONS_TO_ASSERTIONS=ON
+      -DSPIRV_CROSS_FORCE_PIC=ON
+      -DSPIRV_CROSS_SHARED=OFF
+      -DSPIRV_CROSS_STATIC=ON
+    INSTALL_DIR ${THIRDPARTY_DIR}/spirv-cross
+  )
+
+  ExternalProject_Add_Step(spirv-cross remove_extras
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/share"
+    DEPENDEES install
+  )
+endif()
+
+if(BUILD_SPIRV_TOOLS)
+  ExternalProject_Add(
+    spirv-headers
+    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Headers.git
+    GIT_TAG 05836bdba63e7debce9fa9feaed42f20cd43af9d
+
+    BUILD_COMMAND cmake -E echo "Skipping build step."
+    INSTALL_COMMAND cmake -E echo "Skipping install step."
+    EXCLUDE_FROM_ALL TRUE
+  )
+
+  ExternalProject_Add(
+    spirv-tools
+    DEPENDS spirv-headers
+    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
+    GIT_TAG 56d0f50357a192602216bfc4873e714905323e35
+
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DSPIRV-Headers_SOURCE_DIR=${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-prefix/src/spirv-headers
+      -DSPIRV_BUILD_COMPRESSION=OFF
+      -DSPIRV_SKIP_EXECUTABLES=ON
+      -DSPIRV_SKIP_TESTS=ON
+    INSTALL_DIR ${THIRDPARTY_DIR}/spirv-tools
+  )
+
+  ExternalProject_Add_Step(spirv-tools remove_extras
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/pkgconfig"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-opt"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-reduce"
+    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-link"
+    DEPENDEES install
   )
 endif()
