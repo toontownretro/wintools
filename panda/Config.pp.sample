@@ -1,0 +1,60 @@
+// This is a template Config.pp file for use with $WINTOOLS in a development
+// environment.  It sets up some default build settings and the locations for
+// the various thirdparty dependencies within $WINTOOLS.  To get started, copy
+// this file into your personal Config.pp file (such as $PLAYER/Config.pp) and
+// make changes as you see fit.
+
+#define OPTIMIZE 3
+#define LANGUAGE english
+
+#print WINTOOLS: $[WINTOOLS]
+
+// Uncomment and change these to your Python installation paths.
+//#define PYTHON_IPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\include
+//#define PYTHON_LPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\libs
+
+#define BULLET_IPATH $[WINTOOLS]/built/bullet/include
+#define BULLET_LPATH $[WINTOOLS]/built/bullet/lib
+
+#define EMBREE_IPATH $[WINTOOLS]/built/embree/include
+#define EMBREE_LPATH $[WINTOOLS]/built/embree/lib
+
+#define FREETYPE_IPATH $[WINTOOLS]/built/freetype/include
+#define FREETYPE_LPATH $[WINTOOLS]/built/freetype/lib
+
+#define VALVE_STEAMNET_IPATH $[WINTOOLS]/built/gamenetworkingsockets/include/GameNetworkingSockets
+#define VALVE_STEAMNET_LPATH $[WINTOOLS]/built/gamenetworkingsockets/lib
+
+#define GLSLANG_IPATH $[WINTOOLS]/built/glslang/include
+#define GLSLANG_LPATH $[WINTOOLS]/built/glslang/lib
+
+#define HARFBUZZ_IPATH $[WINTOOLS]/built/harfbuzz/include
+#define HARFBUZZ_LPATH $[WINTOOLS]/built/harfbuzz/lib
+
+#define JPEG_IPATH $[WINTOOLS]/built/jpeg/include
+#define JPEG_LPATH $[WINTOOLS]/built/jpeg/lib
+
+#define OPENAL_IPATH $[WINTOOLS]/built/openal/include
+#define OPENAL_LPATH $[WINTOOLS]/built/openal/lib
+
+#define OPENSSL_IPATH $[WINTOOLS]/built/openssl/include
+#define OPENSSL_LPATH $[WINTOOLS]/built/openssl/lib
+
+#define PNG_IPATH $[WINTOOLS]/built/png/include
+#define PNG_LPATH $[WINTOOLS]/built/png/lib
+
+#define SPIRV_CROSS_IPATH $[WINTOOLS]/built/spirv-cross/include
+#define SPIRV_CROSS_LPATH $[WINTOOLS]/built/spirv-cross/lib
+
+#define SPIRV_TOOLS_IPATH $[WINTOOLS]/built/spirv-tools/include
+#define SPIRV_TOOLS_LPATH $[WINTOOLS]/built/spirv-tools/lib
+
+#define SQUISH_IPATH $[WINTOOLS]/built/squish/include
+#define SQUISH_LPATH $[WINTOOLS]/built/squish/lib
+
+#define VORBIS_IPATH $[WINTOOLS]/built/vorbis/include
+#define VORBIS_LPATH $[WINTOOLS]/built/vorbis/lib
+
+#define ZLIB_IPATH $[WINTOOLS]/built/zlib/include
+#define ZLIB_LPATH $[WINTOOLS]/built/zlib/lib
+
