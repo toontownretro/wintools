@@ -217,8 +217,8 @@ if(BUILD_HARFBUZZ)
   ExternalProject_Add(
     freetype-nohb
     DEPENDS zlib png
-    URL https://download.savannah.gnu.org/releases/freetype/freetype-2.7.1.tar.gz
-    URL_HASH SHA256=162ef25aa64480b1189cdb261228e6c5c44f212aac4b4621e28cf2157efb59f5
+    URL https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
+    URL_HASH SHA256=5eab795ebb23ac77001cfb68b7d4d50b5d6c7469247b0b01b2c953269f658dac
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
       -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/zlib;${THIRDPARTY_DIR}/png
@@ -261,16 +261,17 @@ if(BUILD_FREETYPE)
   ExternalProject_Add(
     freetype
     DEPENDS zlib png harfbuzz
-    URL https://download.savannah.gnu.org/releases/freetype/freetype-2.7.1.tar.gz
-    URL_HASH SHA256=162ef25aa64480b1189cdb261228e6c5c44f212aac4b4621e28cf2157efb59f5
+    URL https://download.savannah.gnu.org/releases/freetype/freetype-2.10.4.tar.gz
+    URL_HASH SHA256=5eab795ebb23ac77001cfb68b7d4d50b5d6c7469247b0b01b2c953269f658dac
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
       -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/zlib;${THIRDPARTY_DIR}/png;${THIRDPARTY_DIR}/harfbuzz
       -DWITH_HarfBuzz=ON
       -DWITH_BZip2=OFF
       -DPNG_INCLUDE_DIRS=${THIRDPARTY_DIR}/png/include
-      -DHARFBUZZ_INCLUDE_DIRS=${THIRDPARTY_DIR}/harfbuzz/include
+      -DPC_HARFBUZZ_INCLUDE_DIRS=${THIRDPARTY_DIR}/harfbuzz/include
       -DPC_HARFBUZZ_INCLUDEDIR=${THIRDPARTY_DIR}/harfbuzz/include
+      -DPC_HARFBUZZ_LIBRARY_DIRS=${THIRDPARTY_DIR}/harfbuzz/lib
       -DPC_HARFBUZZ_LIBDIR=${THIRDPARTY_DIR}/harfbuzz/lib
     INSTALL_DIR ${THIRDPARTY_DIR}/freetype
   )
@@ -591,12 +592,11 @@ if(BUILD_OPENSSL AND MSVC)
     URL https://www.openssl.org/source/openssl-1.1.1h.tar.gz
     URL_HASH SHA256=5c9ca8774bd7b03e5784f26ae9e9e6d749c9da2438545077e6b3d755a06595d9
 
-    CONFIGURE_COMMAND perl Configure ${ssl_config} no-asm no-shared --prefix=<INSTALL_DIR>
-              COMMAND ${CMAKE_CURRENT_LIST_DIR}/openssl-ms.bat ${ssl_config}
-    BUILD_COMMAND nmake -f ms\\nt.mak
+    CONFIGURE_COMMAND perl Configure ${ssl_config} no-asm no-shared --prefix=<INSTALL_DIR> --openssldir=<INSTALL_DIR>
+    BUILD_COMMAND nmake
     BUILD_IN_SOURCE 1
 
-    INSTALL_COMMAND nmake -f ms\\nt.mak install
+    INSTALL_COMMAND nmake install
     INSTALL_DIR ${THIRDPARTY_DIR}/openssl
   )
 
@@ -732,18 +732,21 @@ if(BUILD_PROTOBUF)
   )
 endif()
 
-if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF)
+if(BUILD_GAMENETWORKINGSOCKETS AND BUILD_PROTOBUF AND BUILD_OPENSSL)
   ExternalProject_Add(
     gamenetworkingsockets
     GIT_REPOSITORY https://github.com/tsp-team/GameNetworkingSockets.git
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
-      -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/protobuf
+      -DCMAKE_PREFIX_PATH=${THIRDPARTY_DIR}/protobuf;${THIRDPARTY_DIR}/openssl
       -DMSVC_RUNTIME=shared # This only applies to Windows
       -DProtobuf_USE_STATIC_LIBS=1
       -DGAMENETWORKINGSOCKETS_BUILD_TESTS=0
       -DGAMENETWORKINGSOCKETS_BUILD_SAMPLES=0
-    DEPENDS protobuf
+      -DOPENSSL_ROOT_DIR=${THIRDPARTY_DIR}/openssl
+      -DOPENSSL_INCLUDEDIR=${THIRDPARTY_DIR}/openssl/include
+      -DOPENSSL_LIBDIR=${THIRDPARTY_DIR}/openssl/lib
+    DEPENDS protobuf openssl
     INSTALL_DIR ${THIRDPARTY_DIR}/gamenetworkingsockets
   )
 endif()
