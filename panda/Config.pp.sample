@@ -21,13 +21,14 @@
 
 // Comment this out to compile with DirectX 9 support.  You need to have the
 // DirectX SDK installed (August 2009 or newer).
-#define HAVE_DX9
-// You also need to change these to your DX SDK installation paths.
+//#define HAVE_DX9
+// If you want to compile with DX9 support, you also need to change these to
+// your DX SDK installation paths.
 #define DX9_IPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Include
 #define DX9_LPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Lib\\x64
 
 // Change this to the path of your Autodesk Maya installation.
-#define MAYA_LOCATION C:\\Program Files\\Maya2020
+#define MAYA_LOCATION C:\\Program Files\\Autodesk\\Maya2020
 
 ////////////////////////////////////////////////////////////////////////////////////
 
