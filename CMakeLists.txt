@@ -17,7 +17,7 @@ if(APPLE)
   set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
 endif()
 
-project(panda3d-thirdparty)
+project(wintools)
 
 include(ExternalProject)
 
@@ -60,36 +60,7 @@ option(BUILD_GLSLANG "Build glslang" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_CROSS "Build spirv-cross" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_TOOLS "Build spirv-tools" ${DEFAULT_ENABLE})
 
-
-if(CMAKE_GENERATOR MATCHES "^Visual Studio [0-9]+ ")
-  string(REPLACE " " ";" WORDS ${CMAKE_GENERATOR})
-  list(GET WORDS 2 VCVER)
-  set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/win-libs-vc${VCVER})
-
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(THIRDPARTY_DIR "${THIRDPARTY_DIR}-x64")
-  endif()
-
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-  set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/darwin-libs-a)
-
-elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/linux-libs-x64)
-  else()
-    set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/linux-libs-a)
-  endif()
-
-elseif(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
-  if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-    set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/freebsd-libs-x64)
-  else()
-    set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/freebsd-libs-a)
-  endif()
-
-else()
-  message(FATAL_ERROR "Unknown platform.")
-endif()
+set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/built)
 
 if(NOT MSVC)
   set(CMAKE_C_FLAGS "-fpic")
