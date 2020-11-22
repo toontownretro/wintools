@@ -4,14 +4,35 @@
 // this file into your personal Config.pp file (such as $PLAYER/Config.pp) and
 // make changes as you see fit.
 
-#define OPTIMIZE 3
+// This matters to $OTP and $TTMODELS.
 #define LANGUAGE english
 
-#print WINTOOLS: $[WINTOOLS]
+// Compile with optimize 3 for the development build.  This compiles
+// release-optimized code, but includes debug symbols, asserts, PStats, and
+// memory tracking, which are useful for development.
+#define OPTIMIZE 3
 
-// Uncomment and change these to your Python installation paths.
-//#define PYTHON_IPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\include
-//#define PYTHON_LPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\libs
+////////////////////////////////////////////////////////////////////////////////////
+// !!!THE FOLLOWING REQUIRE CHANGES SPECIFIC TO YOUR MACHINE!!!
+
+// Change these to your Python installation paths.
+#define PYTHON_IPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\include
+#define PYTHON_LPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\libs
+
+// Comment this out to compile with DirectX 9 support.  You need to have the
+// DirectX SDK installed (August 2009 or newer).
+#define HAVE_DX9
+// You also need to change these to your DX SDK installation paths.
+#define DX9_IPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Include
+#define DX9_LPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Lib\\x64
+
+// Change this to the path of your Autodesk Maya installation.
+#define MAYA_LOCATION C:\\Program Files\\Maya2020
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// The following paths you should not have to mess with, they are set up to
+// use the packages built by $WINTOOLS.
 
 #define BULLET_IPATH $[WINTOOLS]/built/bullet/include
 #define BULLET_LPATH $[WINTOOLS]/built/bullet/lib
@@ -57,4 +78,3 @@
 
 #define ZLIB_IPATH $[WINTOOLS]/built/zlib/include
 #define ZLIB_LPATH $[WINTOOLS]/built/zlib/lib
-
