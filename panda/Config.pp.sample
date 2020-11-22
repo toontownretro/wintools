@@ -19,7 +19,7 @@
 #define EMBREE_IPATH $[WINTOOLS]/built/embree/include
 #define EMBREE_LPATH $[WINTOOLS]/built/embree/lib
 
-#define FREETYPE_IPATH $[WINTOOLS]/built/freetype/include
+#define FREETYPE_IPATH $[WINTOOLS]/built/freetype/include/freetype2
 #define FREETYPE_LPATH $[WINTOOLS]/built/freetype/lib
 
 #define VALVE_STEAMNET_IPATH $[WINTOOLS]/built/gamenetworkingsockets/include/GameNetworkingSockets
