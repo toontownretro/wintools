@@ -18,6 +18,8 @@
 // Change these to your Python installation paths.
 #define PYTHON_IPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\include
 #define PYTHON_LPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\libs
+// Change this to your Python library file.
+#define PYTHON_LIBS python39.lib
 
 // Comment this out to compile with DirectX 9 support.  You need to have the
 // DirectX SDK installed (August 2009 or newer).
