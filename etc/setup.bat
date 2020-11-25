@@ -9,7 +9,7 @@ if (%PlayerDir% == "") do (
 
 echo Player dir is: %PlayerDir%
 
-set Projects=wintools dtool panda pandatool direct dmodels otp toontown ttmodels
+set Projects=ppremake wintools dtool panda pandatool direct dmodels otp toontown ttmodels
 
 if not exist "%PlayerDir%\vspec" (
     mkdir %PlayerDir%\vspec
