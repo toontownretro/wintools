@@ -16,8 +16,8 @@
 // !!!THE FOLLOWING REQUIRE CHANGES SPECIFIC TO YOUR MACHINE!!!
 
 // Change these to your Python installation paths.
-#define PYTHON_IPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\include
-#define PYTHON_LPATH C:\\Users\\brian\\AppData\\Local\\Programs\\Python\\Python39\\libs
+#define PYTHON_IPATH C:\Users\brian\AppData\Local\Programs\Python\Python39\include
+#define PYTHON_LPATH C:\Users\brian\AppData\Local\Programs\Python\Python39\libs
 // Change this to your Python library file.
 #define PYTHON_LIBS python39.lib
 
@@ -26,11 +26,11 @@
 //#define HAVE_DX9
 // If you want to compile with DX9 support, you also need to change these to
 // your DX SDK installation paths.
-#define DX9_IPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Include
-#define DX9_LPATH C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Lib\\x64
+#define DX9_IPATH $[unixshortname C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include]
+#define DX9_LPATH $[unixshortname C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64]
 
 // Change this to the path of your Autodesk Maya installation.
-#define MAYA_LOCATION C:\\Program Files\\Autodesk\\Maya2020
+#define MAYA_LOCATION $[unixshortname C:\Program Files\Autodesk\Maya2020]
 
 ////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,6 +75,9 @@
 
 #define SQUISH_IPATH $[WINTOOLS]/built/squish/include
 #define SQUISH_LPATH $[WINTOOLS]/built/squish/lib
+
+#define TIFF_IPATH $[WINTOOLS]/built/tiff/include
+#define TIFF_LPATH $[WINTOOLS]/built/tiff/lib
 
 #define VORBIS_IPATH $[WINTOOLS]/built/vorbis/include
 #define VORBIS_LPATH $[WINTOOLS]/built/vorbis/lib
