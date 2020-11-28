@@ -23,7 +23,7 @@
 
 // Comment this out to compile with DirectX 9 support.  You need to have the
 // DirectX SDK installed (August 2009 or newer).
-//#define HAVE_DX9
+#define HAVE_DX9
 // If you want to compile with DX9 support, you also need to change these to
 // your DX SDK installation paths.
 #define DX9_IPATH $[unixshortname C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include]
