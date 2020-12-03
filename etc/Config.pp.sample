@@ -58,6 +58,9 @@
 #define JPEG_IPATH $[WINTOOLS]/built/jpeg/include
 #define JPEG_LPATH $[WINTOOLS]/built/jpeg/lib
 
+#define ODE_IPATH $[WINTOOLS]/built/ode/include
+#define ODE_LPATH $[WINTOOLS]/built/ode/lib
+
 #define OPENAL_IPATH $[WINTOOLS]/built/openal/include
 #define OPENAL_LPATH $[WINTOOLS]/built/openal/lib
 
