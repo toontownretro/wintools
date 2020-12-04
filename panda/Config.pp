@@ -12,25 +12,29 @@
 // memory tracking, which are useful for development.
 #define OPTIMIZE 3
 
-////////////////////////////////////////////////////////////////////////////////////
-// !!!THE FOLLOWING REQUIRE CHANGES SPECIFIC TO YOUR MACHINE!!!
+// These are the environment variables that Panda will evaluate to get a list
+// PRC directories to search along.
+#define PRC_PATH_ENVVARS CFG_PATH ETC_PATH
 
-// Change these to your Python installation paths.
-#define PYTHON_IPATH C:\Users\brian\AppData\Local\Programs\Python\Python39\include
-#define PYTHON_LPATH C:\Users\brian\AppData\Local\Programs\Python\Python39\libs
-// Change this to your Python library file.
-#define PYTHON_LIBS python39.lib
+// These are the filename patterns that will be searched for to load PRC files.
+#define PRC_PATTERNS *.prc Configrc
+
+////////////////////////////////////////////////////////////////////////////////////
+// The following variables are derived from the environment variables that
+// come from env.bat.  Don't edit this directly.  Instead, edit the variables
+// in env.bat that these variables derive themselves from.
+
+#define PYTHON_IPATH $[unixshortname $[PYTHON_LOCATION]\include]
+#define PYTHON_LPATH $[unixshortname $[PYTHON_LOCATION]\libs]
+#define PYTHON_LIBS python3.lib
 
 // Comment this out to compile with DirectX 9 support.  You need to have the
 // DirectX SDK installed (August 2009 or newer).
 #define HAVE_DX9
-// If you want to compile with DX9 support, you also need to change these to
-// your DX SDK installation paths.
-#define DX9_IPATH $[unixshortname C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include]
-#define DX9_LPATH $[unixshortname C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x64]
+#define DX9_IPATH $[unixshortname $[DX_SDK_LOCATION]\Include]
+#define DX9_LPATH $[unixshortname $[DX_SDK_LOCATION]\Lib\$[if $[WIN64_PLATFORM],x64,x86]]
 
-// Change this to the path of your Autodesk Maya installation.
-#define MAYA_LOCATION $[unixshortname C:\Program Files\Autodesk\Maya2020]
+#define MAYA_LOCATION $[unixshortname $[MAYA_LOCATION]]
 
 ////////////////////////////////////////////////////////////////////////////////////
 
