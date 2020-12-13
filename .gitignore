@@ -5,3 +5,4 @@ linux-*/*
 freebsd-*/*
 Pmw/
 built/*
+__pycache__

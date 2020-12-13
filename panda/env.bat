@@ -4,7 +4,7 @@ REM env.bat
 REM ===========================================================================
 REM This file is automatically executed when you launch the console using the
 REM Terminal shortcut.  It sets up necessary environment variables and executes
-REM the DTOOL setup script, which sets up futher necessary things.
+REM the WINTOOLS setup script, which sets up futher necessary things.
 REM
 REM You can add any other environment variables and commands you would like to
 REM be executed when the Terminal launches.
@@ -25,24 +25,11 @@ REM Correct this if your player directory is located anywhere other than
 REM C:\Users\[username]\player.
 set PLAYER=%USERPROFILE%\player
 
-set DTOOL=%PLAYER%\dtool
+set WINTOOLS=%PLAYER%\wintools
 
-REM ===============================================================
-REM You probably don't want to mess with this right here.
-
-if exist "%DTOOL%\built\etc" (
-  REM If this is a built dtool, invoke the installed startup script.
-  call %DTOOL%\built\etc\dtool.bat
-) else (
-  REM If this is not a built dtool, invoke the startup script directly from
-  REM source.
-  call %DTOOL%\src\attach\dtool.bat
-)
-REM ===============================================================
-
-REM We attached to dtool above, now attach to ppremake and wintools.
-call cta ppremake
-call cta wintools
+REM Invoke the WINTOOLS startup script.  This further bootstraps our
+REM environment and attaches us to WINTOOLS.
+call %WINTOOLS%\attach\wintools.bat
 
 REM You can add other automatic attachments here.  Note that if you attach to
 REM a tree low in the hierarchy, all the the parent trees will automatically be
