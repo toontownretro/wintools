@@ -119,8 +119,6 @@ def attach_mod(var, value, root, proj):
             # If it's in there already, we're done before we started.
             root = ctutils.to_os_specific(root + "/built", False)
             if value.startswith(root):
-                print("Might be doing in-place edit")
-                print (value, root)
                 # New values contains root
                 # damn, might need to do an in-place edit
                 curroot = os.environ.get(proj, "")
