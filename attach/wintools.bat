@@ -54,3 +54,5 @@ if "%SETUP_SCRIPT%" == "" (
 )
 
 call %SETUP_SCRIPT%
+REM Show our attachments.
+call ctshowprojs

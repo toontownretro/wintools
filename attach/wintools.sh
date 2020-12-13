@@ -96,4 +96,6 @@ else
   source $SETUP_SCRIPT
   # Also invoke the alias script.
   source wintools.alias-sh
+  # And show our projects.
+  ctshowprojs
 fi
