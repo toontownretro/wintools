@@ -1,2 +1,3 @@
 personal:root:path=$PLAYER/direct
+prebuilt:root:path=$PLAYER/prebuilt/direct
 default:root:path=$PLAYER/direct

@@ -1,2 +1,3 @@
 personal:root:path=$PLAYER/ppremake
+prebuilt:root:path=$PLAYER/prebuilt/ppremake
 default:root:path=$PLAYER/ppremake
