@@ -41,6 +41,8 @@ alias ctuna='ctunattach'
 alias ctupload='ctupload.py'
 alias ctdownload='ctdownload.py'
 
+alias newheader='newheader.py'
+
 rlogin() {
   rlogin $@
   ctshowprojs
