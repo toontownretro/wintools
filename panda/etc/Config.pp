@@ -21,4 +21,4 @@
 #define PRC_PATTERNS *.prc Configrc
 
 // Now include the platform-specific Config.pp file if it exists.
-#sinclude Config.$[PLATFORM].pp
+#sinclude $[THISDIRPREFIX]Config.$[PLATFORM].pp

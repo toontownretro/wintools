@@ -6,4 +6,4 @@
 //
 
 // Just include the Win32 file, there isn't anything 32-bit specific in there.
-#include Config.Win32.pp
+#include $[THISDIRPREFIX]Config.Win32.pp
