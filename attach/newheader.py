@@ -9,7 +9,10 @@ import datetime
 lang = sys.argv[1]
 baseName = sys.argv[2]
 
-user = os.environ.get("USER")
+if os.name == "nt":
+    user = os.environ.get("USERNAME")
+else:
+    user = os.environ.get("USER")
 
 cppHeader = """/**
  * PANDA 3D SOFTWARE
