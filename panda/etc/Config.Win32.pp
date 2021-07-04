@@ -77,3 +77,5 @@
 
 #define ZLIB_IPATH $[WINTOOLS]/built/zlib/include
 #define ZLIB_LPATH $[WINTOOLS]/built/zlib/lib
+
+#define EIGEN_IPATH $[WINTOOLS]/built/eigen/include
