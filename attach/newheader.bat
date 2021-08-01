@@ -1,3 +1,3 @@
 @echo off
 
-newheader.py %*
+%PYTHON_LOCATION%\python.exe %cttools_path%\newheader.py %*

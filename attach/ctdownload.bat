@@ -1,3 +1,3 @@
 @echo off
 
-ctdownload.py %*
+%PYTHON_LOCATION%\python.exe %cttools_path%\ctdownload.py %*

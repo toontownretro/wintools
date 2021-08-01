@@ -1,3 +1,3 @@
 @echo off
 
-ctshowprojs.py
+%PYTHON_LOCATION%\python.exe %cttools_path%\ctshowprojs.py

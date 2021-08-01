@@ -1,3 +1,3 @@
 @echo off
 
-ctupload.py %*
+%PYTHON_LOCATION%\python.exe %cttools_path%\ctupload.py %*

@@ -43,9 +43,9 @@ set PATH=%cttools_path%;%PATH%
 set SETUP_SCRIPT=
 
 if "%1" == "" (
-  for /F "tokens=* delims=\n" %%a in ('%cttools_path%\ctattach.py wintools') do echo %%a && set SETUP_SCRIPT=%%a
+  for /F "tokens=* delims=\n" %%a in ('%PYTHON_LOCATION%\python.exe %cttools_path%\ctattach.py wintools') do echo %%a && set SETUP_SCRIPT=%%a
 ) else (
-  for /F "tokens=* delims=\n" %%a in ('%cttools_path%\ctattach.py wintools %1') do echo %%a && set SETUP_SCRIPT=%%a
+  for /F "tokens=* delims=\n" %%a in ('%PYTHON_LOCATION%\python.exe %cttools_path%\ctattach.py wintools %1') do echo %%a && set SETUP_SCRIPT=%%a
 )
 
 if "%SETUP_SCRIPT%" == "" (
