@@ -707,7 +707,7 @@ endif()
 if(BUILD_EMBREE)
   ExternalProject_Add(
     embree
-    URL https://github.com/embree/embree/releases/download/v3.10.0/embree-3.10.0.x64.vc14.windows.zip
+    URL https://github.com/embree/embree/releases/download/v3.13.0/embree-3.13.0.x64.vc14.windows.zip
     #GIT_TAG ad35a6794c7cc9194dc845a6b3c49eb492e585e3 # 3.10.0
 
     CONFIGURE_COMMAND ""
@@ -715,7 +715,7 @@ if(BUILD_EMBREE)
       INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/lib <INSTALL_DIR>/lib
               COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include
               COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/embree3.dll <INSTALL_DIR>/bin/embree3.dll
-              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/tbb.dll <INSTALL_DIR>/bin/tbb.dll
+              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/tbb12.dll <INSTALL_DIR>/bin/tbb12.dll
       INSTALL_DIR ${THIRDPARTY_DIR}/embree
   )
 endif()
