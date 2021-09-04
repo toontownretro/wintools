@@ -79,3 +79,6 @@
 #define ZLIB_LPATH $[WINTOOLS]/built/zlib/lib
 
 #define EIGEN_IPATH $[WINTOOLS]/built/eigen/include
+
+#define MIMALLOC_IPATH $[WINTOOLS]/built/mimalloc/include
+#define MIMALLOC_LPATH $[WINTOOLS]/built/mimalloc/lib

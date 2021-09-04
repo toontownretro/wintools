@@ -40,7 +40,7 @@ option(BUILD_HARFBUZZ "Build harfbuzz (requires freetype)" ${DEFAULT_ENABLE})
 option(BUILD_FREETYPE "Build freetype (requires harfbuzz, zlib and png)" ${DEFAULT_ENABLE})
 option(BUILD_VORBIS "Build vorbis" ${DEFAULT_ENABLE})
 option(BUILD_OPUS "Build opus" OFF)
-option(BUILD_OPENAL "Build OpenAL" ${NOT_APPLE})
+option(BUILD_OPENAL "Build OpenAL" OFF)
 option(BUILD_JPEG "Build libjpeg" ${DEFAULT_ENABLE})
 option(BUILD_SQUISH "Build libsquish" ${DEFAULT_ENABLE})
 option(BUILD_FCOLLADA "Build FCollada" OFF)
@@ -49,7 +49,7 @@ option(BUILD_TIFF "Build TIFF (requires zlib and jpeg)" ${DEFAULT_ENABLE})
 option(BUILD_EIGEN "Copy Eigen headers" ${DEFAULT_ENABLE})
 option(BUILD_ODE "Build ODE physics engine" ${DEFAULT_ENABLE})
 option(BUILD_ARTOOLKIT "Build ARToolKit" OFF)
-option(BUILD_NVIDIACG "Copy NVIDIA Cg Toolkit binaries" ${DEFAULT_ENABLE})
+option(BUILD_NVIDIACG "Copy NVIDIA Cg Toolkit binaries" OFF)
 option(BUILD_OPENSSL "Build OpenSSL" ${DEFAULT_ENABLE})
 option(BUILD_OPENEXR "Build OpenEXR" OFF)
 option(BUILD_FFMPEG "Build FFMpeg (requires vorbis, freetype and zlib)" ${DEFAULT_ENABLE})
@@ -59,6 +59,7 @@ option(BUILD_GAMENETWORKINGSOCKETS "Build Valve GameNetworkingSockets (requires 
 option(BUILD_GLSLANG "Build glslang" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_CROSS "Build spirv-cross" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_TOOLS "Build spirv-tools" ${DEFAULT_ENABLE})
+option(BUILD_MIMALLOC "Build mimalloc allocator" ${DEFAULT_ENABLE})
 
 set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/built)
 
@@ -834,5 +835,24 @@ if(BUILD_SPIRV_TOOLS)
     COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-reduce"
     COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-link"
     DEPENDEES install
+  )
+endif()
+
+if(BUILD_MIMALLOC)
+  ExternalProject_Add(
+    mimalloc
+    GIT_REPOSITORY https://github.com/microsoft/mimalloc.git
+    GIT_TAG b3b0fb58326a96beea1f4872bc1489d1d9fda7e0 # v2.0.2
+
+    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
+      -DMI_SECURE=OFF
+      -DMI_OVERRIDE=OFF
+      -DMI_XMALLOC=OFF
+      -DMI_BUILD_SHARED=OFF
+      -DMI_BUILD_STATIC=ON
+      -DMI_BUILD_OBJECT=OFF
+      -DMI_BUILD_TESTS=OFF
+      -DMI_INSTALL_TOPLEVEL=ON
+    INSTALL_DIR ${THIRDPARTY_DIR}/mimalloc
   )
 endif()
