@@ -33,6 +33,9 @@
 #define EMBREE_IPATH $[WINTOOLS]/built/embree/include
 #define EMBREE_LPATH $[WINTOOLS]/built/embree/lib
 
+#define OIDN_IPATH $[WINTOOLS]/built/oidn/include
+#define OIDN_LPATH $[WINTOOLS]/built/oidn/lib
+
 #define FREETYPE_IPATH $[WINTOOLS]/built/freetype/include/freetype2
 #define FREETYPE_LPATH $[WINTOOLS]/built/freetype/lib
 

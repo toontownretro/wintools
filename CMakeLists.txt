@@ -60,6 +60,7 @@ option(BUILD_GLSLANG "Build glslang" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_CROSS "Build spirv-cross" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_TOOLS "Build spirv-tools" ${DEFAULT_ENABLE})
 option(BUILD_MIMALLOC "Build mimalloc allocator" ${DEFAULT_ENABLE})
+option(BUILD_OIDN "Build Intel OpenImageDenoise" ${DEFAULT_ENABLE})
 
 set(THIRDPARTY_DIR ${CMAKE_SOURCE_DIR}/built)
 
@@ -709,7 +710,6 @@ if(BUILD_EMBREE)
   ExternalProject_Add(
     embree
     URL https://github.com/embree/embree/releases/download/v3.13.0/embree-3.13.0.x64.vc14.windows.zip
-    #GIT_TAG ad35a6794c7cc9194dc845a6b3c49eb492e585e3 # 3.10.0
 
     CONFIGURE_COMMAND ""
       BUILD_COMMAND ""
@@ -718,6 +718,21 @@ if(BUILD_EMBREE)
               COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/embree3.dll <INSTALL_DIR>/bin/embree3.dll
               COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/tbb12.dll <INSTALL_DIR>/bin/tbb12.dll
       INSTALL_DIR ${THIRDPARTY_DIR}/embree
+  )
+endif()
+
+if(BUILD_OIDN)
+  ExternalProject_Add(
+    oidn
+    URL https://github.com/OpenImageDenoise/oidn/releases/download/v1.4.1/oidn-1.4.1.x64.vc14.windows.zip
+
+    CONFIGURE_COMMAND ""
+      BUILD_COMMAND ""
+      INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/lib <INSTALL_DIR>/lib
+              COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include <INSTALL_DIR>/include
+              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/OpenImageDenoise.dll <INSTALL_DIR>/bin/OpenImageDenoise.dll
+              COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/bin/tbb12.dll <INSTALL_DIR>/bin/tbb12.dll
+      INSTALL_DIR ${THIRDPARTY_DIR}/oidn
   )
 endif()
 
