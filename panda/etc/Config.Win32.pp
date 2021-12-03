@@ -13,6 +13,13 @@
 #define PYTHON_IPATH $[unixshortname $[PYTHON_LOCATION]\include]
 #define PYTHON_LPATH $[unixshortname $[PYTHON_LOCATION]\libs]
 #define PYTHON_LIBS python3.lib
+#define PYPY_LIBS python38.lib
+
+// We're using PyPy, So we want to properly setup for it.
+#if $[and $[libtest $[PYTHON_LPATH],$[PYPY_LIBS]],$[not $[libtest $[PYTHON_LPATH],$[PYTHON_LIBS]]]]
+#define PYTHON_LIBS $[PYPY_LIBS]
+#define PYTHON_COMMAND pypy
+#endif
 
 // Comment this out to compile with DirectX 9 support.  You need to have the
 // DirectX SDK installed (August 2009 or newer).
