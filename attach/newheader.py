@@ -14,6 +14,25 @@ if os.name == "nt":
 else:
     user = os.environ.get("USER")
 
+wantH = True
+wantCxx = True
+wantI = True
+if lang == "cxx":
+    if len(sys.argv) > 3:
+        s = sys.argv[3].lower()
+        if 'h' in s:
+            wantH = True
+        else:
+            wantH = False
+        if 'i' in s:
+            wantI = True
+        else:
+            wantI = False
+        if 'c' in s:
+            wantCxx = True
+        else:
+            wantCxx = False
+
 cppHeader = """/**
  * PANDA 3D SOFTWARE
  * Copyright (c) Carnegie Mellon University.  All rights reserved.
@@ -32,29 +51,38 @@ cppDate = datetime.datetime.now().strftime("%Y-%m-%d")
 pyHeader = "\"\"\"%s module: contains the %s class.\"\"\""
 
 def createCppFiles():
-    hFile = open(baseName + ".h", 'w')
-    hFile.write(cppHeader % (baseName + ".h", user, cppDate))
-    hFile.write("\n")
-    hFile.write("#ifndef %s_H\n" % baseName.upper())
-    hFile.write("#define %s_H\n" % baseName.upper())
-    hFile.write("\n")
-    hFile.write("#include \"%s.I\"\n" % baseName)
-    hFile.write("\n")
-    hFile.write("#endif // %s_H\n" % baseName.upper())
-    hFile.close()
-    print("Wrote %s.h" % baseName)
+    isSrc = baseName.endswith("_src")
 
-    iFile = open(baseName + ".I", 'w')
-    iFile.write(cppHeader % (baseName + ".I", user, cppDate))
-    iFile.close()
-    print("Wrote %s.I" % baseName)
+    if wantH:
+        hFile = open(baseName + ".h", 'w')
+        hFile.write(cppHeader % (baseName + ".h", user, cppDate))
+        hFile.write("\n")
+        if not isSrc:
+            hFile.write("#ifndef %s_H\n" % baseName.upper())
+            hFile.write("#define %s_H\n" % baseName.upper())
+            hFile.write("\n")
+        if wantI:
+            hFile.write("#include \"%s.I\"\n" % baseName)
+        if not isSrc:
+            hFile.write("\n")
+            hFile.write("#endif // %s_H\n" % baseName.upper())
+        hFile.close()
+        print("Wrote %s.h" % baseName)
 
-    cxxFile = open(baseName + ".cxx", 'w')
-    cxxFile.write(cppHeader % (baseName + ".cxx", user, cppDate))
-    cxxFile.write("\n")
-    cxxFile.write("#include \"%s.h\"\n" % baseName)
-    cxxFile.close()
-    print("Wrote %s.cxx" % baseName)
+    if wantI:
+        iFile = open(baseName + ".I", 'w')
+        iFile.write(cppHeader % (baseName + ".I", user, cppDate))
+        iFile.close()
+        print("Wrote %s.I" % baseName)
+
+    if wantCxx:
+        cxxFile = open(baseName + ".cxx", 'w')
+        cxxFile.write(cppHeader % (baseName + ".cxx", user, cppDate))
+        if wantH and not isSrc:
+            cxxFile.write("\n")
+            cxxFile.write("#include \"%s.h\"\n" % baseName)
+        cxxFile.close()
+        print("Wrote %s.cxx" % baseName)
 
 def createPyFiles():
     pyFile = open(baseName + ".py", 'w')
