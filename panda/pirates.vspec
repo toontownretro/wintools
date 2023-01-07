@@ -1,0 +1,3 @@
+personal:root:path=$PLAYER/pirates
+prebuilt:root:path=$PLAYER/prebuilt/pirates
+default:root:path=$PLAYER/pirates

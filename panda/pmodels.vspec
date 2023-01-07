@@ -1,0 +1,3 @@
+personal:root:path=$PLAYER/pmodels
+prebuilt:root:path=$PLAYER/prebuilt/pmodels
+default:root:path=$PLAYER/pmodels
