@@ -38,7 +38,7 @@ def spool_env(var):
     for i in range(len(splitlist)):
         split = splitlist[i]
         val = ctutils.to_os_specific(split, False)
-        if re.search("\s", val) and not re.search("\"", val):
+        if not ctutils.is_cmd and re.search("\s", val) and not re.search("\"", val):
             val = "\"" + val + "\""
         ret.append(val)
 
