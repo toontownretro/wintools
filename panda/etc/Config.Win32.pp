@@ -92,3 +92,12 @@
 
 #define MIMALLOC_IPATH $[WINTOOLS]/built/mimalloc/include
 #define MIMALLOC_LPATH $[WINTOOLS]/built/mimalloc/lib
+
+#define FMOD_IPATH $[WINTOOLS]/built/fmod/include
+#define FMOD_LPATH $[WINTOOLS]/built/fmod/lib
+
+#define PHYSX_IPATH $[WINTOOLS]/built/physx/include
+#define PHYSX_LPATH $[WINTOOLS]/built/physx/lib
+
+#define STEAM_AUDIO_IPATH $[WINTOOLS]/built/steamaudio/include
+#define STEAM_AUDIO_LPATH $[WINTOOLS]/built/steamaudio/lib
