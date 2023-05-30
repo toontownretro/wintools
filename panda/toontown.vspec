@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/toontown
 prebuilt:root:path=$PLAYER/prebuilt/toontown
+release:root:path=$PLAYER/release/toontown
 default:root:path=$PLAYER/toontown

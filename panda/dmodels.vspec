@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/dmodels
 prebuilt:root:path=$PLAYER/prebuilt/dmodels
+release:root:path=$PLAYER/release/dmodels
 default:root:path=$PLAYER/dmodels

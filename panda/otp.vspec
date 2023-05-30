@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/otp
 prebuilt:root:path=$PLAYER/prebuilt/otp
+release:root:path=$PLAYER/release/otp
 default:root:path=$PLAYER/otp

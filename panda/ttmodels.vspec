@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/ttmodels
 prebuilt:root:path=$PLAYER/prebuilt/ttmodels
+release:root:path=$PLAYER/release/ttmodels
 default:root:path=$PLAYER/ttmodels

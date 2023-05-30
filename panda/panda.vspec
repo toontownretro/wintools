@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/panda
 prebuilt:root:path=$PLAYER/prebuilt/panda
+release:root:path=$PLAYER/release/panda
 default:root:path=$PLAYER/panda

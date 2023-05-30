@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/dtool
 prebuilt:root:path=$PLAYER/prebuilt/dtool
+release:root:path=$PLAYER/release/dtool
 default:root:path=$PLAYER/dtool

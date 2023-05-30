@@ -1,3 +1,4 @@
 personal:root:path=$PLAYER/pirates
 prebuilt:root:path=$PLAYER/prebuilt/pirates
+release:root:path=$PLAYER/release/pirates
 default:root:path=$PLAYER/pirates
