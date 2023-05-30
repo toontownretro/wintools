@@ -1,0 +1,4 @@
+personal:root:path=$PLAYER/tfmodels
+prebuilt:root:path=$PLAYER/prebuilt/tfmodels
+release:root:path=$PLAYER/release/tfmodels
+default:root:path=$PLAYER/tfmodels

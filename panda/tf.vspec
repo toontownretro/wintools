@@ -1,0 +1,4 @@
+personal:root:path=$PLAYER/tf
+prebuilt:root:path=$PLAYER/prebuilt/tf
+release:root:path=$PLAYER/release/tf
+default:root:path=$PLAYER/tf
