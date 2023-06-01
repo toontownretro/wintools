@@ -84,12 +84,10 @@ def from_os_specific(path):
 ctvspec_path = os.environ.get("CTVSPEC_PATH")
 if not ctvspec_path:
     # The environment did not tell us, pick a default.
-    home = os.environ.get("HOME", None)
-    if home:
-        ctvspec_path = home + "/player/vspec"
+    if is_cmd:
+        ctvspec_path = os.environ["USERPROFILE"] + "\\etc"
     else:
-        # Must be running under Windows CMD.
-        ctvspec_path = os.path.expanduser("~/player/vspec")
+        ctvspec_path = "/usr/local/etc"
 ctvspec_path = Path(ctvspec_path)
 
 ftp_address = "127.0.0.1"
