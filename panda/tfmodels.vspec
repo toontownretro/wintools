@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/tfmodels
-prebuilt:root:path=$PLAYER/prebuilt/tfmodels
-release:root:path=$PLAYER/release/tfmodels
-default:root:path=$PLAYER/tfmodels
+personal:root:path=$HOME/player/tfmodels
+alpha:root:path=$HOME/alpha/tfmodels
+beta:root:path=$HOME/beta/tfmodels
+release:root:path=$HOME/release/tfmodels
+ship:root:path=$HOME/ship/tfmodels
+install:root:path=$HOME/install/tfmodels
+default:ref:name=personal

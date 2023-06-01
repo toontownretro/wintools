@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/wintools
-prebuilt:root:path=$PLAYER/prebuilt/wintools
-release:root:path=$PLAYER/release/wintools
-default:root:path=$PLAYER/wintools
+personal:root:path=$HOME/player/wintools
+alpha:root:path=$HOME/alpha/wintools
+beta:root:path=$HOME/beta/wintools
+release:root:path=$HOME/release/wintools
+ship:root:path=$HOME/ship/wintools
+install:root:path=$HOME/install/wintools
+default:ref:name=personal

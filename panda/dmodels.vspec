@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/dmodels
-prebuilt:root:path=$PLAYER/prebuilt/dmodels
-release:root:path=$PLAYER/release/dmodels
-default:root:path=$PLAYER/dmodels
+personal:root:path=$HOME/player/dmodels
+alpha:root:path=$HOME/alpha/dmodels
+beta:root:path=$HOME/beta/dmodels
+release:root:path=$HOME/release/dmodels
+ship:root:path=$HOME/ship/dmodels
+install:root:path=$HOME/install/dmodels
+default:ref:name=personal

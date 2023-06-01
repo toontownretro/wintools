@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/pirates
-prebuilt:root:path=$PLAYER/prebuilt/pirates
-release:root:path=$PLAYER/release/pirates
-default:root:path=$PLAYER/pirates
+personal:root:path=$HOME/player/pirates
+alpha:root:path=$HOME/alpha/pirates
+beta:root:path=$HOME/beta/pirates
+release:root:path=$HOME/release/pirates
+ship:root:path=$HOME/ship/pirates
+install:root:path=$HOME/install/pirates
+default:ref:name=personal

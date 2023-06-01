@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/panda
-prebuilt:root:path=$PLAYER/prebuilt/panda
-release:root:path=$PLAYER/release/panda
-default:root:path=$PLAYER/panda
+personal:root:path=$HOME/player/panda
+alpha:root:path=$HOME/alpha/panda
+beta:root:path=$HOME/beta/panda
+release:root:path=$HOME/release/panda
+ship:root:path=$HOME/ship/panda
+install:root:path=$HOME/install/panda
+default:ref:name=personal

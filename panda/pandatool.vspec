@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/pandatool
-prebuilt:root:path=$PLAYER/prebuilt/pandatool
-release:root:path=$PLAYER/release/pandatool
-default:root:path=$PLAYER/pandatool
+personal:root:path=$HOME/player/pandatool
+alpha:root:path=$HOME/alpha/pandatool
+beta:root:path=$HOME/beta/pandatool
+release:root:path=$HOME/release/pandatool
+ship:root:path=$HOME/ship/pandatool
+install:root:srcpath=$HOME/player/pandatool:installpath=$HOME/install/pandatool
+default:ref:name=personal

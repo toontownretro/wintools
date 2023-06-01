@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/otp_server
-prebuilt:root:path=$PLAYER/prebuilt/otp_server
-release:root:path=$PLAYER/release/otp_server
-default:root:path=$PLAYER/otp_server
+personal:root:path=$HOME/player/otp_server
+alpha:root:path=$HOME/alpha/otp_server
+beta:root:path=$HOME/beta/otp_server
+release:root:path=$HOME/release/otp_server
+ship:root:path=$HOME/ship/otp_server
+install:root:path=$HOME/install/otp_server
+default:ref:name=personal

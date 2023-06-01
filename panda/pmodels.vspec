@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/pmodels
-prebuilt:root:path=$PLAYER/prebuilt/pmodels
-release:root:path=$PLAYER/release/pmodels
-default:root:path=$PLAYER/pmodels
+personal:root:path=$HOME/player/pmodels
+alpha:root:path=$HOME/alpha/pmodels
+beta:root:path=$HOME/beta/pmodels
+release:root:path=$HOME/release/pmodels
+ship:root:path=$HOME/ship/pmodels
+install:root:path=$HOME/install/pmodels
+default:ref:name=personal

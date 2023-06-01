@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/direct
-prebuilt:root:path=$PLAYER/prebuilt/direct
-release:root:path=$PLAYER/release/direct
-default:root:path=$PLAYER/direct
+personal:root:path=$HOME/player/direct
+alpha:root:path=$HOME/alpha/direct
+beta:root:path=$HOME/beta/direct
+release:root:path=$HOME/release/direct
+ship:root:path=$HOME/ship/direct
+install:root:path=$HOME/install/direct
+default:ref:name=personal

@@ -10,6 +10,9 @@ REM You can add any other environment variables and commands you would like to
 REM be executed when the Terminal launches.
 REM ===========================================================================
 
+REM Specify where our local Config.pp file is located.
+set PPREMAKE_CONFIG=%USERPROFILE%\Config.pp
+
 REM Correct this to the location of your Python install.
 set PYTHON_LOCATION=C:\Python39
 
@@ -21,11 +24,7 @@ REM variables so we can invoke the Visual C++ compiler.  You may need to
 REM correct this path.
 call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat"
 
-REM Correct this if your player directory is located anywhere other than
-REM C:\Users\[username]\player.
-set PLAYER=%USERPROFILE%\player
-
-set WINTOOLS=%PLAYER%\wintools
+set WINTOOLS=%USERPROFILE%\player\wintools
 
 REM Invoke the WINTOOLS startup script.  This further bootstraps our
 REM environment and attaches us to WINTOOLS.

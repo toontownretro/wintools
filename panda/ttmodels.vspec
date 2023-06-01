@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/ttmodels
-prebuilt:root:path=$PLAYER/prebuilt/ttmodels
-release:root:path=$PLAYER/release/ttmodels
-default:root:path=$PLAYER/ttmodels
+personal:root:path=$HOME/player/ttmodels
+alpha:root:path=$HOME/alpha/ttmodels
+beta:root:path=$HOME/beta/ttmodels
+release:root:path=$HOME/release/ttmodels
+ship:root:path=$HOME/ship/ttmodels
+install:root:path=$HOME/install/ttmodels
+default:ref:name=personal

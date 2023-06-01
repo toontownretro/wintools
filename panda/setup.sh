@@ -5,17 +5,11 @@
 
 echo "------------ WINTOOLS SETUP ------------"
 
-PlayerDir=$HOME/player
-
-if [ ! -e $PlayerDir/vspec ]; then
-  mkdir $PlayerDir/vspec
-fi
-
-cp *.vspec $PlayerDir/vspec/
+source cp_vspec.sh
 
 for file in Config.pp Config.prc .playerrc
 do
-  cp $file $PlayerDir/$file
+  cp $file ~/
 done
 
 echo Setup is finished.

@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/toontown
-prebuilt:root:path=$PLAYER/prebuilt/toontown
-release:root:path=$PLAYER/release/toontown
-default:root:path=$PLAYER/toontown
+personal:root:path=$HOME/player/toontown
+alpha:root:path=$HOME/alpha/toontown
+beta:root:path=$HOME/beta/toontown
+release:root:path=$HOME/release/toontown
+ship:root:path=$HOME/ship/toontown
+install:root:path=$HOME/install/toontown
+default:ref:name=personal

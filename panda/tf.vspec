@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/tf
-prebuilt:root:path=$PLAYER/prebuilt/tf
-release:root:path=$PLAYER/release/tf
-default:root:path=$PLAYER/tf
+personal:root:path=$HOME/player/tf
+alpha:root:path=$HOME/alpha/tf
+beta:root:path=$HOME/beta/tf
+release:root:path=$HOME/release/tf
+ship:root:path=$HOME/ship/tf
+install:root:path=$HOME/install/tf
+default:ref:name=personal

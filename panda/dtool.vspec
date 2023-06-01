@@ -1,4 +1,7 @@
-personal:root:path=$PLAYER/dtool
-prebuilt:root:path=$PLAYER/prebuilt/dtool
-release:root:path=$PLAYER/release/dtool
-default:root:path=$PLAYER/dtool
+personal:root:path=$HOME/player/dtool
+alpha:root:path=$HOME/alpha/dtool
+beta:root:path=$HOME/beta/dtool
+release:root:path=$HOME/release/dtool
+ship:root:path=$HOME/ship/dtool
+install:root:path=$HOME/install/dtool
+default:ref:name=personal
