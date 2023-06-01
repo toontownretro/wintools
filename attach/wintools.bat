@@ -4,20 +4,10 @@ if "%HOME%" == "" (
   set HOME=%USERPROFILE%
 )
 
-if "%PLAYER%" == "" (
-  set PLAYER=%USERPROFILE%\player
-)
-
-if "%PPREMAKE_CONFIG%" == "" (
-  set PPREMAKE_CONFIG=%PLAYER%\Config.pp
-)
+set PATH=%HOME%\bin;%HOME%\lib;%HOME%\etc;C:\bin;C:\lib;C:\etc;%PATH%
 
 if "%CTDEFAULT_FLAV%" == "" (
   set CTDEFAULT_FLAV=default
-)
-
-if "%CTVSPEC_PATH%" == "" (
-  set CTVSPEC_PATH=%PLAYER%\vspec
 )
 
 if "%PENV%" == "" (
@@ -29,7 +19,7 @@ if "%SHELL_TYPE%" == "" (
 )
 
 if "%WINTOOLS%" == "" (
-  set WINTOOLS=%PLAYER%\wintools
+  set WINTOOLS=%HOME%\player\wintools
 )
 
 if not exist "%WINTOOLS%\attach" (

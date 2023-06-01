@@ -32,28 +32,13 @@ export STKPATH
 SHELL_TYPE="sh"
 export SHELL_TYPE
 
-if [ -z "$PLAYER" ]; then
-  PLAYER=$HOME/player
-  export PLAYER
-fi
-
-if [ -z "$PPREMAKE_CONFIG" ]; then
-  PPREMAKE_CONFIG=$PLAYER/Config.pp
-  export PPREMAKE_CONFIG
-fi
-
 if [ -z "$CTDEFAULT_FLAV" ]; then
   CTDEFAULT_FLAV="default"
   export CTDEFAULT_FLAV
 fi
 
-if [ -z "$CTVSPEC_PATH" ]; then
-  CTVSPEC_PATH=$PLAYER/vspec
-  export CTVSPEC_PATH
-fi
-
-if [ -z ${WINTOOLS} ]; then
-  WINTOOLS=$PLAYER/wintools
+if [ -z "$WINTOOLS" ]; then
+  WINTOOLS=~/player/wintools
   export WINTOOLS
 fi
 
