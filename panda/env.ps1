@@ -19,16 +19,15 @@ $env:PYTHON_LOCATION="$HOME\AppData\Local\Programs\Python\Python311"
 # Correct this to the location of your Maya install.
 $env:MAYA_LOCATION="C:\Program Files\Autodesk\Maya2020"
 
-# This script provided by Visual Studio sets up appropriate environment
-# variables so we can invoke the Visual C++ compiler.  You may need to
-# correct this path.
-invoke-batchfile "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat"
-
 $env:WINTOOLS="$HOME\player\wintools"
 
 # Invoke the WINTOOLS startup script.  This further bootstraps our
 # environment and attaches us to WINTOOLS.
 . $env:WINTOOLS\attach\wintools.ps1
+
+# Make Visual Studio tools available on our path.  Correct the VS version
+# and platform architecture as needed.
+attach-vs 2022 x64
 
 # You can add other automatic attachments here.  Note that if you attach to
 # a tree low in the hierarchy, all the the parent trees will automatically be

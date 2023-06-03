@@ -39,7 +39,6 @@ if (!(test-path "$env:WINTOOLS\attach"))
 $env:CTTOOLS_PATH="$env:WINTOOLS\attach"
 $env:PATH="$env:CTTOOLS_PATH;$env:PATH"
 
-write-output "args: $args"
 $setup_script=. $env:PYTHON_LOCATION\python.exe $env:CTTOOLS_PATH\ctattach.py wintools
 
 if (!($setup_script))
