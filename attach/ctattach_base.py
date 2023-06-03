@@ -38,7 +38,7 @@ def spool_env(var):
     for i in range(len(splitlist)):
         split = splitlist[i]
         val = ctutils.to_os_specific(split, False)
-        if not ctutils.is_cmd and re.search("\s", val) and not re.search("\"", val):
+        if (not ctutils.is_cmd and not ctutils.is_powershell) and re.search("\s", val) and not re.search("\"", val):
             val = "\"" + val + "\""
         ret.append(val)
 
@@ -52,7 +52,10 @@ def attach_write_null_script(filename):
     if ctutils.shell_type == "bat":
         outfile.write("@echo off\n")
 
-    outfile.write("echo No attachment actions performed\n")
+    if ctutils.is_powershell:
+        outfile.write("write-output \"No attachment actions performed\"\n")
+    else:
+        outfile.write("echo No attachment actions performed\n")
 
     outfile.close()
 
@@ -78,6 +81,8 @@ def attach_write_script(filename):
                 outfile.write(f"export {item}\n")
         elif ctutils.shell_type == "bat":
             outfile.write(f"set {item}={outval}\n")
+        elif ctutils.is_powershell:
+            outfile.write(f"$env:{item}=\"{outval}\"\n")
 
     for i in range(docnt):
         outfile.write(f"{envdo[i]}\n")
@@ -263,24 +268,14 @@ def attach_compute(proj, flav, anydef):
                 elif re.search("^CMD", kw):
                     linesplit = kw.split(" ")
                     localcmd[linesplit[1]] = linesplit[2]
-                elif re.search("^DOCSH", kw):
-                    if ctutils.shell_type == "csh":
-                        linesplit = kw.split(" ")
-                        linesplit.pop(0)
-                        localdo[localdocnt] = " ".join(linesplit)
-                        localdocnt += 1
-                elif re.search("^DOSH", kw):
-                    if ctutils.shell_type == "bash":
-                        linesplit = kw.split(" ")
-                        linesplit.pop(0)
-                        localdo[localdocnt] = " ".join(linesplit)
-                        localdocnt += 1
-                elif re.search("^DOBAT", kw):
-                    if ctutils.shell_type == "bat":
-                        linesplit = kw.split(" ")
-                        linesplit.pop(0)
-                        localdo[localdocnt] = " ".join(linesplit)
-                        localdocnt += 1
+                elif ((re.search("^DOCSH", kw) and ctutils.shell_type == "csh") or
+                      (re.search("^DOSH", kw) and ctutils.shell_type == "bash") or
+                      (re.search("^DOBAT", kw) and ctutils.shell_type == "bat") or
+                      (re.search("^DOPS1", kw) and ctutils.shell_type == "ps1")):
+                    linesplit = kw.split(" ")
+                    linesplit.pop(0)
+                    localdo[localdocnt] = " ".join(linesplit)
+                    localdocnt += 1
                 elif re.search("^DO", kw):
                     linesplit = kw.split(" ")
                     linesplit.pop(0)

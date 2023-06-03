@@ -123,7 +123,7 @@ def unattach_compute(proj, flav):
                 elif re.search("^POSTPEND", kw):
                     linesplit = kw.split(" ")
                     envpostpend[linesplit[1]] = 1
-                elif re.search("(^DOCSH)|(^DOSH)|(^DO)|(^ATTACH)", kw):
+                elif re.search("(^DOCSH)|(^DOSH)|(^DOBAT)|(^DOPS1)|(^DO)|(^ATTACH)", kw):
                     # DO and ATTACH commands mean nothing for unattach
                     pass
                 else:

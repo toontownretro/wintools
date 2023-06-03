@@ -16,9 +16,10 @@ else:
     shell_type = splitlist[len(splitlist) - 1]
 
 # This evaluates to True if we are running Python within a Cygwin terminal.
-is_cygwin = (shell_type != "bat") and (os.name == "nt")
+is_cygwin = (shell_type not in ("bat", "ps1")) and (os.name == "nt")
 # Are we running inside Windows cmd?
 is_cmd = (shell_type == "bat") and (os.name == "nt")
+is_powershell = (shell_type == "ps1") and (os.name == "nt")
 
 def posix_to_win32(path):
     if len(path) == 0:
@@ -37,7 +38,7 @@ def posix_to_win32(path):
         remainder = remainder.replace("/", "\\")
         windows_pathname = path[1].upper() + ":" + remainder
 
-    elif len(path) > len(hosts_prefix) and path[0, len(hosts_prefix)] == hosts_prefix:
+    elif len(path) > len(hosts_prefix) and path[0:len(hosts_prefix)] == hosts_prefix:
         windows_pathname = "\\" + path[len(hosts_prefix):].replace("/", "\\")
 
     else:
@@ -69,13 +70,13 @@ def win32_to_posix(path):
     return result
 
 def to_os_specific(path, cyg2win=True):
-    if is_cmd or (is_cygwin and cyg2win):
+    if is_cmd or (is_cygwin and cyg2win) or is_powershell:
         return posix_to_win32(path)
     else:
         return win32_to_posix(path)
 
 def from_os_specific(path):
-    if is_cmd or is_cygwin:
+    if is_cmd or is_cygwin or is_powershell:
         return win32_to_posix(path)
     else:
         return path
@@ -84,7 +85,7 @@ def from_os_specific(path):
 ctvspec_path = os.environ.get("CTVSPEC_PATH")
 if not ctvspec_path:
     # The environment did not tell us, pick a default.
-    if is_cmd:
+    if is_cmd or is_powershell:
         ctvspec_path = os.environ["USERPROFILE"] + "\\etc"
     else:
         ctvspec_path = "/usr/local/etc"
@@ -137,7 +138,7 @@ def remove_readonly(func, path, excinfo):
 # Returns the environment path separator.  This returns ";" on Windows and ":"
 # on anything else.
 def get_env_sep(cyg2win=True):
-    if is_cmd or (is_cygwin and cyg2win):
+    if is_cmd or (is_cygwin and cyg2win) or is_powershell:
         return ";"
     else:
         return ":"
