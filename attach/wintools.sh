@@ -82,5 +82,5 @@ else
   # Also invoke the alias script.
   source wintools.alias-sh
   # And show our projects.
-  $cttools_path/ctshowprojs.py
+  ctshowprojs
 fi
