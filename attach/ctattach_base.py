@@ -268,14 +268,30 @@ def attach_compute(proj, flav, anydef):
                 elif re.search("^CMD", kw):
                     linesplit = kw.split(" ")
                     localcmd[linesplit[1]] = linesplit[2]
-                elif ((re.search("^DOCSH", kw) and ctutils.shell_type == "csh") or
-                      (re.search("^DOSH", kw) and ctutils.shell_type == "bash") or
-                      (re.search("^DOBAT", kw) and ctutils.shell_type == "bat") or
-                      (re.search("^DOPS1", kw) and ctutils.shell_type == "ps1")):
-                    linesplit = kw.split(" ")
-                    linesplit.pop(0)
-                    localdo[localdocnt] = " ".join(linesplit)
-                    localdocnt += 1
+                elif re.search("^DOCSH", kw):
+                    if ctutils.shell_type == "csh":
+                        linesplit = kw.split(" ")
+                        linesplit.pop(0)
+                        localdo[localdocnt] = " ".join(linesplit)
+                        localdocnt += 1
+                elif re.search("^DOSH", kw):
+                    if ctutils.shell_type == "bash":
+                        linesplit = kw.split(" ")
+                        linesplit.pop(0)
+                        localdo[localdocnt] = " ".join(linesplit)
+                        localdocnt += 1
+                elif re.search("^DOBAT", kw):
+                    if ctutils.shell_type == "bat":
+                        linesplit = kw.split(" ")
+                        linesplit.pop(0)
+                        localdo[localdocnt] = " ".join(linesplit)
+                        localdocnt += 1
+                elif re.search("^DOPS1", kw):
+                    if ctutils.shell_type == "ps1":
+                        linesplit = kw.split(" ")
+                        linesplit.pop(0)
+                        localdo[localdocnt] = " ".join(linesplit)
+                        localdocnt += 1
                 elif re.search("^DO", kw):
                     linesplit = kw.split(" ")
                     linesplit.pop(0)
