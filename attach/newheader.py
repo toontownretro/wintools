@@ -10,9 +10,9 @@ lang = sys.argv[1]
 baseName = sys.argv[2]
 
 if os.name == "nt":
-    user = os.environ.get("USERNAME")
+    user = os.environ.get("USERNAME").lower()
 else:
-    user = os.environ.get("USER")
+    user = os.environ.get("USER").lower()
 
 wantH = True
 wantCxx = True
