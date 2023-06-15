@@ -774,7 +774,7 @@ if(BUILD_GLSLANG)
   ExternalProject_Add(
     glslang
     GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
-    GIT_TAG a53aa3e94f8b4bf22a6eb6e8a207fe91ab02b989
+    GIT_TAG d1517d64cfca91f573af1bf7341dc3a5113349c0
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
       -DBUILD_EXTERNAL=OFF
