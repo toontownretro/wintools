@@ -15,6 +15,7 @@ $env:PPREMAKE_CONFIG="$HOME\Config.pp"
 
 # Correct this to the location of your Python install.
 $env:PYTHON_LOCATION="$HOME\AppData\Local\Programs\Python\Python311"
+$env:PYTHON_BIN=$env:PYTHON_LOCATION
 
 # Correct this to the location of your Maya install.
 $env:MAYA_LOCATION="C:\Program Files\Autodesk\Maya2020"
