@@ -58,7 +58,6 @@ option(BUILD_PROTOBUF "Build Protobuf" ${DEFAULT_ENABLE})
 option(BUILD_GAMENETWORKINGSOCKETS "Build Valve GameNetworkingSockets (requires protobuf)" ${DEFAULT_ENABLE})
 option(BUILD_GLSLANG "Build glslang" ${DEFAULT_ENABLE})
 option(BUILD_SPIRV_CROSS "Build spirv-cross" ${DEFAULT_ENABLE})
-option(BUILD_SPIRV_TOOLS "Build spirv-tools" ${DEFAULT_ENABLE})
 option(BUILD_MIMALLOC "Build mimalloc allocator" ${DEFAULT_ENABLE})
 option(BUILD_OIDN "Build Intel OpenImageDenoise" ${DEFAULT_ENABLE})
 
@@ -774,10 +773,10 @@ if(BUILD_GLSLANG)
   ExternalProject_Add(
     glslang
     GIT_REPOSITORY https://github.com/KhronosGroup/glslang.git
-    GIT_TAG d1517d64cfca91f573af1bf7341dc3a5113349c0
+    GIT_TAG a91631b260cba3f22858d6c6827511e636c2458a
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
-      -DBUILD_EXTERNAL=OFF
+      -DBUILD_EXTERNAL=ON
       -DBUILD_SHARED_LIBS=OFF
       -DBUILD_TESTING=OFF
       -DENABLE_EXCEPTIONS=OFF
@@ -787,13 +786,19 @@ if(BUILD_GLSLANG)
       -DENABLE_SPVREMAPPER=OFF
     INSTALL_DIR ${THIRDPARTY_DIR}/glslang
   )
+
+  ExternalProject_Add_Step(glslang gen_sources
+    COMMAND python <SOURCE_DIR>/update_glslang_sources.py
+    WORKING_DIRECTORY <SOURCE_DIR>
+    DEPENDERS configure
+    DEPENDEES download)
 endif()
 
 if(BUILD_SPIRV_CROSS)
   ExternalProject_Add(
     spirv-cross
     GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Cross.git
-    GIT_TAG 58291963c6a3f3322fa652595777f4e1e84a2874
+    GIT_TAG 2de1265fca722929785d9acdec4ab728c47a0254
 
     CMAKE_ARGS ${COMMON_CMAKE_ARGS}
       -DSPIRV_CROSS_CLI=OFF
@@ -814,41 +819,6 @@ if(BUILD_SPIRV_CROSS)
 
   ExternalProject_Add_Step(spirv-cross remove_extras
     COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/share"
-    DEPENDEES install
-  )
-endif()
-
-if(BUILD_SPIRV_TOOLS)
-  ExternalProject_Add(
-    spirv-headers
-    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Headers.git
-    GIT_TAG 05836bdba63e7debce9fa9feaed42f20cd43af9d
-
-    BUILD_COMMAND cmake -E echo "Skipping build step."
-    INSTALL_COMMAND cmake -E echo "Skipping install step."
-    EXCLUDE_FROM_ALL TRUE
-  )
-
-  ExternalProject_Add(
-    spirv-tools
-    DEPENDS spirv-headers
-    GIT_REPOSITORY https://github.com/KhronosGroup/SPIRV-Tools.git
-    GIT_TAG 56d0f50357a192602216bfc4873e714905323e35
-
-    CMAKE_ARGS ${COMMON_CMAKE_ARGS}
-      -DSPIRV-Headers_SOURCE_DIR=${CMAKE_CURRENT_BINARY_DIR}/spirv-headers-prefix/src/spirv-headers
-      -DSPIRV_BUILD_COMPRESSION=OFF
-      -DSPIRV_SKIP_EXECUTABLES=ON
-      -DSPIRV_SKIP_TESTS=ON
-    INSTALL_DIR ${THIRDPARTY_DIR}/spirv-tools
-  )
-
-  ExternalProject_Add_Step(spirv-tools remove_extras
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/lib/pkgconfig"
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools"
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-opt"
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-reduce"
-    COMMAND ${CMAKE_COMMAND} -E remove_directory "<INSTALL_DIR>/SPIRV-Tools-link"
     DEPENDEES install
   )
 endif()

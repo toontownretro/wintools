@@ -73,8 +73,9 @@
 #define SPIRV_CROSS_IPATH $[WINTOOLS]/built/spirv-cross/include
 #define SPIRV_CROSS_LPATH $[WINTOOLS]/built/spirv-cross/lib
 
-#define SPIRV_TOOLS_IPATH $[WINTOOLS]/built/spirv-tools/include
-#define SPIRV_TOOLS_LPATH $[WINTOOLS]/built/spirv-tools/lib
+// SPIRV-Tools now builds with glslang.
+#define SPIRV_TOOLS_IPATH $[WINTOOLS]/built/glslang/include
+#define SPIRV_TOOLS_LPATH $[WINTOOLS]/built/glslang/lib
 
 #define SQUISH_IPATH $[WINTOOLS]/built/squish/include
 #define SQUISH_LPATH $[WINTOOLS]/built/squish/lib
